@@ -30,19 +30,13 @@ public class TabStatiqueFile<E> implements File<E> {
 		}
 
 		public E next() {
-			
-			System.out.println("index  : " +this.indexCourant);
-			
+						
 			if (this.indexCourant == tab.length) {
 				this.indexCourant = 0;
 				return tab[this.indexCourant ];
 			}			
 			
 			return tab[this.indexCourant++];
-		}
-		
-		public void remove() {
-			
 		}
 	}
 	

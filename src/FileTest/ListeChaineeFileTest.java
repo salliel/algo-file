@@ -1,4 +1,4 @@
-package file;
+package FileTest;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -6,11 +6,15 @@ import java.util.Iterator;
 
 import org.junit.jupiter.api.Test;
 
-class TabStatiqueFileTest {
+import file.File;
+import file.ListeChaineeFile;
 
+class ListeChaineeFileTest {
+
+	
 	@Test
 	public void offerTest() {
-		File<Integer> f = new TabStatiqueFile<>(5);
+		File<Integer> f = new ListeChaineeFile<>();
 		
 		assertTrue(f.isEmpty());
 		
@@ -24,13 +28,7 @@ class TabStatiqueFileTest {
 			assertEquals(0, f.peek());
 
 			f.offer(4);
-			
-			assertFalse(0 == f.peek());
-			
-			assertEquals(1, f.peek());
-
-			assertTrue(1 == f.peek());
-		
+						
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -38,18 +36,18 @@ class TabStatiqueFileTest {
 	
 	@Test
 	public void pullTest() {
-		File<Integer> f = new TabStatiqueFile<>(5);
+		File<Integer> f = new ListeChaineeFile<>();
 
 		for (int i = 0; i < 5 ; i++) {
 			f.offer(i);
 		}
 		
-		assertEquals(4, f.size());
+		assertEquals(5, f.size());
 		
 		try {
-			assertEquals(1, f.poll());
+			assertEquals(0, f.poll());
 			
-			assertEquals(3, f.size());
+			assertEquals(4, f.size());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -58,7 +56,7 @@ class TabStatiqueFileTest {
 
 	@Test
 	public void peekTest() {
-		File<Integer> f = new TabStatiqueFile<>(5);
+		File<Integer> f = new ListeChaineeFile<>();
 
 		for (int i = 0; i < 4 ; i++) {
 			f.offer(i);
@@ -69,9 +67,7 @@ class TabStatiqueFileTest {
 			
 			f.offer(4);
 			
-			assertFalse(0 == f.peek());
-			
-			assertEquals(1, f.peek());
+			assertEquals(0, f.peek());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -80,7 +76,7 @@ class TabStatiqueFileTest {
 	
 	@Test
 	public void isEmptyTest() {
-		File<Integer> f = new TabStatiqueFile<>(5);
+		File<Integer> f = new ListeChaineeFile<>();
 
 		assertTrue(f.isEmpty());
 		
@@ -91,7 +87,7 @@ class TabStatiqueFileTest {
 	
 	@Test
 	public void sizeTest() {
-		File<Integer> f = new TabStatiqueFile<>(5);
+		File<Integer> f = new ListeChaineeFile<>();
 
 		assertEquals(0, f.size());
 		
@@ -103,14 +99,14 @@ class TabStatiqueFileTest {
 			f.offer(i);
 		}
 		
-		assertEquals(4, f.size());
+		assertEquals(21, f.size());
 		try {
 			
 			for (int i = 0; i < 2 ; i++) {
 				f.poll();
 			}
 			
-			assertEquals(2, f.size());
+			assertEquals(19, f.size());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -120,13 +116,13 @@ class TabStatiqueFileTest {
 	
 	@Test
 	public void clearTest() {
-		File<Integer> f = new TabStatiqueFile<>(5);
+		File<Integer> f = new ListeChaineeFile<>();
 		
 		for (int i = 0; i < 20 ; i++) {
 			f.offer(i);
 		}
 	
-		assertEquals(4, f.size());
+		assertEquals(20, f.size());
 		assertFalse(f.isEmpty());
 		
 		f.clear();
@@ -137,7 +133,7 @@ class TabStatiqueFileTest {
 	
 	@Test
 	public void iteratorTest() {
-		File<Integer> f = new TabStatiqueFile<>(5);
+		File<Integer> f = new ListeChaineeFile<>();
 		
 		for (int i = 0; i < 20 ; i++) {
 			f.offer(i);
@@ -145,21 +141,14 @@ class TabStatiqueFileTest {
 		
 		Iterator<Integer> it = f.iterator();
 		
-		try {
-			assertEquals(it.next(), f.peek());
-	
-			int i = 0;
+		try {	
 			while (it.hasNext()){
-				System.out.println(it.next());
-				i++;
+				assertEquals(it.next(), f.poll());
 			}
 			
-			assertEquals(4, i);
-
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
 
 }
