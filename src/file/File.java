@@ -2,12 +2,14 @@ package file;
 
 import java.util.Iterator;
 
+import exceptions.EmptyFifoException;
+
 /**
  * Interface permettant de representer une file
  * 
  * @author yossef & steeven
  *
- * @param <E>
+ * @param <E> E represente le type d'objet que peut contenir la file
  */
 public interface File<E> extends Iterable<E> {
 
@@ -23,7 +25,7 @@ public interface File<E> extends Iterable<E> {
 	 * @return
 	 * @throws Exception
 	 */
-	E poll() throws Exception;
+	E poll() throws EmptyFifoException;
 	
 	
 	/**
@@ -32,7 +34,7 @@ public interface File<E> extends Iterable<E> {
 	 * @return
 	 * @throws Exception
 	 */
-	E peek() throws Exception;
+	E peek() throws EmptyFifoException;
 	
 	
 	/**

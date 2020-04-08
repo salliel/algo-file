@@ -3,6 +3,18 @@ package file;
 import java.lang.reflect.Array;
 import java.util.Iterator;
 
+import exceptions.EmptyFifoException;
+
+
+/**
+ * Classe implementant l'interface File, permettant de reprensenter une file sous la forme d'un tableau statique
+ * c'est à dire d'un tableau avec une taille fixé lors de l'initialisation mais qui suit la strategie rotative de 
+ * "on perd on le plus ancien" en cas de file pleine
+ * 
+ * @author yossef & steeven
+ *
+ * @param <E> E represente le type d'objet que peut contenir la file
+ */
 public class TabStatiqueFile<E> implements File<E> {
 
 	private int indexStart;
@@ -10,6 +22,25 @@ public class TabStatiqueFile<E> implements File<E> {
 	private E[] tab; 
 	
 	@SuppressWarnings("unchecked")
+	/**
+	 * constructeur de TabStatiqueFile permettant d'initialiser l'index de debut et de fin de file à 0 (il faut surtout qu'il soit 
+	 * égaux pour initialiser la file à vide au debut)
+	 * il ne prend pas de parametre, donc on fixe une taille par defaut à 10.
+	 */
+	public TabStatiqueFile() {
+		super();
+		this.indexStart = 0;
+		this.indexEnd = 0;
+		this.tab = (E[]) Array.newInstance(Object.class, 10);
+	}
+	
+	@SuppressWarnings("unchecked")
+	/**
+	 * constructeur de TabStatiqueFile permettant d'initialiser l'index de debut et de fin de file à 0 (il faut surtout qu'il soit 
+	 * égaux pour initialiser la file à vide au debut)
+	 * il prend en parametre la taille fixé de la file.
+	 * @param size
+	 */
 	public TabStatiqueFile(int size) {
 		super();
 		this.indexStart = 0;
@@ -22,6 +53,15 @@ public class TabStatiqueFile<E> implements File<E> {
 		return new Itr();
 	}
 
+	
+
+	/**
+	 * classe interne implementant l'interface Iterator permettant de redefinir les methodes hasnext() et next()
+	 * pour parcourir la file
+	 * 
+	 *  @author steeven & yossef
+	 *
+	 */
 	private class Itr implements Iterator<E> {
 		private int indexCourant = indexStart;
 
@@ -53,10 +93,10 @@ public class TabStatiqueFile<E> implements File<E> {
 	}
 
 	@Override
-	public E poll() throws Exception {
+	public E poll() throws EmptyFifoException {
 		
 		if (this.isEmpty()) {
-			throw new Exception("Erreur file vide"); 
+			throw new EmptyFifoException("Erreur file vide"); 
 		}
 		E top = this.tab[this.indexStart];
 		this.indexStart = (this.indexStart + 1) % this.tab.length;
@@ -65,9 +105,9 @@ public class TabStatiqueFile<E> implements File<E> {
 	}
 
 	@Override
-	public E peek() throws Exception {
+	public E peek() throws EmptyFifoException {
 		if (this.isEmpty()) {
-			throw new Exception("Erreur file vide"); 
+			throw new EmptyFifoException("Erreur file vide"); 
 		}
 		return this.tab[this.indexStart];
 	}

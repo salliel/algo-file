@@ -3,6 +3,16 @@ package file;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
+import exceptions.EmptyFifoException;
+
+
+/**
+ * Classe implementant l'interface pile permettant de representer une file sous la forme d'une liste chainé
+ * 
+ * @author steeven & yossef
+ *
+ * @param <E>E represente le type d'objet que peut contenir la liste chainé
+ */
 public class ListeChaineeFile<E> implements File<E> {
 
     /**
@@ -33,6 +43,10 @@ public class ListeChaineeFile<E> implements File<E> {
     private int length;
 
 
+    /**
+     * Constructeur de la file sous forme de liste chaine permettant d'initialiser le noeud du début et le noeud de fin
+     * à null (ce qui definit que la pile est vide) ainsi que la longueur de la file à 0 car la file estt vide à l'initialisation.
+     */
     public ListeChaineeFile() {
 		super();
 		this.start = null;
@@ -57,9 +71,9 @@ public class ListeChaineeFile<E> implements File<E> {
 	}
 
 	@Override
-	public E poll() throws Exception {
+	public E poll() throws EmptyFifoException {
 		if (this.isEmpty())
-			throw new Exception("Erreur pile vide");
+			throw new EmptyFifoException("Erreur file vide");
 
 		E elem = this.start.value;
 		this.start = this.start.chain;
@@ -69,9 +83,9 @@ public class ListeChaineeFile<E> implements File<E> {
 	}
 
 	@Override
-	public E peek() throws Exception {
+	public E peek() throws EmptyFifoException {
 		if (this.isEmpty())
-			throw new Exception("Erreur pile vide");
+			throw new EmptyFifoException("Erreur file vide");
 		
 		return this.start.value;
 	}
@@ -97,6 +111,13 @@ public class ListeChaineeFile<E> implements File<E> {
 		return new Itr();
 	}
 	
+	/**
+	 * classe interne implementant l'interface Iterator permettant de redefinir les methodes hasnext() et next()
+	 * pour parcourir la file
+	 * 
+	 *  @author steeven & yossef
+	 *
+	 */
 	private class Itr implements Iterator<E>{
 
 		private Noeud currentElement = start;

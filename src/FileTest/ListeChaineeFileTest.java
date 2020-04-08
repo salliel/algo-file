@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import org.junit.jupiter.api.Test;
 
+import exceptions.EmptyFifoException;
 import file.File;
 import file.ListeChaineeFile;
 
@@ -29,7 +30,7 @@ class ListeChaineeFileTest {
 
 			f.offer(4);
 						
-		} catch (Exception e) {
+		} catch (EmptyFifoException e) {
 			e.printStackTrace();
 		}
 	}
@@ -49,7 +50,7 @@ class ListeChaineeFileTest {
 			
 			assertEquals(4, f.size());
 
-		} catch (Exception e) {
+		} catch (EmptyFifoException e) {
 			e.printStackTrace();
 		}
 	}
@@ -69,7 +70,7 @@ class ListeChaineeFileTest {
 			
 			assertEquals(0, f.peek());
 
-		} catch (Exception e) {
+		} catch (EmptyFifoException e) {
 			e.printStackTrace();
 		}
 	}
@@ -108,7 +109,7 @@ class ListeChaineeFileTest {
 			
 			assertEquals(19, f.size());
 
-		} catch (Exception e) {
+		} catch (EmptyFifoException e) {
 			e.printStackTrace();
 		}
 	}
@@ -146,7 +147,7 @@ class ListeChaineeFileTest {
 				assertEquals(it.next(), f.poll());
 			}
 			
-		} catch (Exception e) {
+		} catch (EmptyFifoException e) {
 			e.printStackTrace();
 		}
 	}

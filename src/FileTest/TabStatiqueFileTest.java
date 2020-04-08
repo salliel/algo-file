@@ -6,6 +6,7 @@ import java.util.Iterator;
 
 import org.junit.jupiter.api.Test;
 
+import exceptions.EmptyFifoException;
 import file.File;
 import file.TabStatiqueFile;
 
@@ -34,7 +35,7 @@ class TabStatiqueFileTest {
 
 			assertTrue(1 == f.peek());
 		
-		} catch (Exception e) {
+		} catch (EmptyFifoException e) {
 			e.printStackTrace();
 		}
 	}
@@ -54,7 +55,7 @@ class TabStatiqueFileTest {
 			
 			assertEquals(3, f.size());
 
-		} catch (Exception e) {
+		} catch (EmptyFifoException e) {
 			e.printStackTrace();
 		}
 	}
@@ -76,7 +77,7 @@ class TabStatiqueFileTest {
 			
 			assertEquals(1, f.peek());
 
-		} catch (Exception e) {
+		} catch (EmptyFifoException e) {
 			e.printStackTrace();
 		}
 	}
@@ -115,7 +116,7 @@ class TabStatiqueFileTest {
 			
 			assertEquals(2, f.size());
 
-		} catch (Exception e) {
+		} catch (EmptyFifoException e) {
 			e.printStackTrace();
 		}
 	}
@@ -159,7 +160,7 @@ class TabStatiqueFileTest {
 			
 			assertEquals(4, i);
 
-		} catch (Exception e) {
+		} catch (EmptyFifoException e) {
 			e.printStackTrace();
 		}
 	}
